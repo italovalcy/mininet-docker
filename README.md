@@ -16,3 +16,13 @@ You can also run using a topology file:
 	docker run --privileged --name mn1 -d italovalcy/mininet:2.3.0d6 /usr/bin/tail -f /dev/null
 	docker cp mytopo.py mn1:/
 	docker exec -it mn1 python3 /mytopo.py
+
+Help:
+```
+prompt$ docker run --privileged italovalcy/mininet:2.3.0d6 --help
+docker run italovalcy/mininet [options]
+    -h, --help                    display help information
+    /path/program ARG1 .. ARGn    execute the specfified local program
+    URL ARG1 .. ARGn              download script from URL and execute it
+    --ARG1 .. --ARGn              execute mininet with these arguments
+```

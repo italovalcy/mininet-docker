@@ -10,36 +10,34 @@ usage() {
 }
 
 launch() {
-  # If no options are given or if only a single option is given and it is "-h"
-  # display help infformation
-  if [ $# -eq 0 -o $1 == "-h" -o $1 == "--help" ]; then
-    usage
+  # If first argument is a URL then download the script and execute it passing
+  # it the rest of the arguments
+  if [[ $1 =~ ^(file|http|https|ftp|ftps):// ]]; then
+    curl -s -o ./script $1
+    chmod 755 ./script
+    shift
+    exec ./script $@
+
+  # If first argument is an absolute file path then execute that file passing
+  # it the rest of the arguments
+  elif [[ $1 =~ ^/ ]]; then
+    exec $@
+
+  # If first argument looks like an argument then execute mininet with all the
+  # arguments
+  elif [[ $1 =~ ^- ]]; then
+    exec mn $@
+
+  # Unknown argument
   else
-
-    # If first argument is a URL then download the script and execute it passing
-    # it the rest of the arguments
-    if [[ $1 =~ ^(file|http|https|ftp|ftps):// ]]; then
-      curl -s -o ./script $1
-      chmod 755 ./script
-      shift
-      exec ./script $@
-
-    # If first argument is an absolute file path then execute that file passing
-    # it the rest of the arguments
-    elif [[ $1 =~ ^/ ]]; then
-      exec $@
-
-    # If first argument looks like an argument then execute mininet with all the
-    # arguments
-    elif [[ $1 =~ ^- ]]; then
-      exec mn $@
-   
-    # Unknown argument
-    else
-      usage
-    fi
+    usage
   fi
 }
+
+if [ $# -eq 0 ] || [ $1 == "-h" -o $1 == "--help" ]; then
+  usage
+  exit 0
+fi
 
 # Start the Open Virtual Switch Service
 service openvswitch-switch start
