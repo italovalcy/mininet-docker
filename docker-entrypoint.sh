@@ -4,7 +4,7 @@ set -e
 usage() {
   echo "docker run italovalcy/mininet [options]"
   echo "    -h, --help                    display help information"
-  echo "    /path/program ARG1 .. ARGn    execute the specfified local program"
+  echo "    /path/program ARG1 .. ARGn    execute the specified local program"
   echo "    URL ARG1 .. ARGn              download script from URL and execute it"
   echo "    --ARG1 .. --ARGn              execute mininet with these arguments"
 }
@@ -34,7 +34,7 @@ launch() {
   fi
 }
 
-if [ $# -eq 0 ] || [ $1 == "-h" -o $1 == "--help" ]; then
+if [ $# -eq 0 ] || [ $1 = "-h" -o $1 = "--help" ]; then
   usage
   exit 0
 fi
