@@ -1,21 +1,21 @@
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 MAINTAINER Italo Valcy <italovalcy@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet
+RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet tmux
 
 RUN apt-get -y --no-install-recommends install git-core ca-certificates patch
 WORKDIR /usr/src
 RUN git clone https://github.com/mininet/mininet \
   && cd mininet \
-  && git checkout 2.3.0d6 \
+  && git checkout 2.3.1b4 \
   && sed -e 's/sudo //g' \
 	 -e 's/DEBIAN_FRONTEND=noninteractive //g' \
 	 -e 's/\(apt-get -y -q install\)/\1 --no-install-recommends --no-install-suggests/g' \
          -i ./util/install.sh \
+  && rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED \
   && ./util/install.sh -f \
-  && PYTHON=python2 ./util/install.sh -n \
   && PYTHON=python3 ./util/install.sh -n \
   && cd .. && rm -rf mininet openflow \
   && rm -rf /var/lib/apt/lists/*
