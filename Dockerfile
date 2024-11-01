@@ -24,4 +24,4 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 6633 6653 6640
 
-ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/docker-entrypoint.sh"]
