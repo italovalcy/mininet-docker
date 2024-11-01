@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 This example creates a multi-controller network from semi-scratch by
 using the net.add*() API and manually starting the switches and controllers.
