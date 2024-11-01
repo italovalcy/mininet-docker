@@ -1,9 +1,8 @@
 FROM debian:bookworm-slim
-MAINTAINER Italo Valcy <italovalcy@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet tmux
+RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet tmux tini
 
 RUN apt-get -y --no-install-recommends install git-core ca-certificates patch
 WORKDIR /usr/src
@@ -25,4 +24,4 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 6633 6653 6640
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
