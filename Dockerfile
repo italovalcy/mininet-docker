@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet tmux tini
+RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests openvswitch-switch curl iproute2 iputils-ping net-tools tcpdump x11-xserver-utils xterm iperf socat telnet tmux tini jq
 
 RUN apt-get -y --no-install-recommends install git-core ca-certificates patch
 WORKDIR /usr/src
